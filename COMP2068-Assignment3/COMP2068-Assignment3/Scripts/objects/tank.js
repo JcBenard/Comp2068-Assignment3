@@ -11,12 +11,20 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Tank() {
             _super.call(this, assetLoader.getResult("tank"));
-            this._dx = 2;
-            this.x = 10;
+            this._dy = 1;
+            this.regX = this.getBounds().width * 0.5;
+            this.regY = this.getBounds().height * 0.5;
+            this.x = 35;
             this.y = 220;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
-        Tank.prototype.update = function () {
+        Tank.prototype.update = function (playerY) {
+            if (this.y > playerY) {
+                this.y -= this._dy;
+            }
+            else if (this.y < playerY) {
+                this.y += this._dy;
+            }
         };
         return Tank;
     })(createjs.Bitmap);

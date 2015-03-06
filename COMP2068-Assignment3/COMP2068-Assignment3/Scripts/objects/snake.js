@@ -11,13 +11,22 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Snake() {
             _super.call(this, assetLoader.getResult("snake"));
+            this._dx = 3;
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this.x = 200;
+            this.x = 225;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Snake.prototype.update = function () {
-            this.y = stage.mouseY;
+            if (this.y > stage.mouseY + 10) {
+                this.y -= this._dx;
+            }
+            else if (this.y < stage.mouseY - 10) {
+                this.y += this._dx;
+            }
+        };
+        Snake.prototype.getY = function () {
+            return this.y;
         };
         return Snake;
     })(createjs.Bitmap);

@@ -50,7 +50,7 @@ function gameLoop() {
 
     stage.update(); // Refreshes our stage
     snake.update();
-    tank.update();
+    tank.update(snake.getY());
     background.update();
 
     for (var index = 10; index > 0; index--) {
