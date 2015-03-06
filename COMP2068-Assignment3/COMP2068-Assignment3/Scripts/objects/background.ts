@@ -1,17 +1,17 @@
 ﻿module objects {
 
-    export class Ocean extends createjs.Bitmap {
+    export class Background extends createjs.Bitmap {
         //public instanced variables
         public width;
         public height;
 
         //private instanced variables
-        private _dy = 5;
+        private _dx = 5;
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
 
-            super(assetLoader.getResult("ocean"));
+            super(assetLoader.getResult("background"));
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -23,20 +23,20 @@
 
         //public methods/////////////////////////////////////////////////////////////////////////////
         public update() {
-            this.y += this._dy;
+            this.x -= this._dx;
 
             this._checkBounds();
         }
 
         private _reset() {
             this.x = 0;
-            this.y = 960;
+            this.y = 0;
         }
 
         private _checkBounds() {
-            if (this.y >= 0) {
+            if (this.x < -640) {
                 this._reset();
             }
         }
     }
-}   
+}  

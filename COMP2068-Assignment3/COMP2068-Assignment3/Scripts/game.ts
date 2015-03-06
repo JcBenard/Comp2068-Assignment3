@@ -6,8 +6,8 @@
 
 /// <reference path="objects/plane.ts" />
 /// <reference path="objects/island.ts" />
-/// <reference path="objects/cloud.ts" />
-/// <reference path="objects/ocean.ts" />
+/// <reference path="objects/background.ts" />
+/// <reference path="objects/mine.ts" />
 
 var canvas;
 var stage: createjs.Stage;
@@ -16,14 +16,14 @@ var assetLoader: createjs.LoadQueue;
 //game objects
 var plane: objects.Plane;
 var island: objects.Island;
-var clouds: objects.Cloud[] = [];
-var ocean: objects.Ocean;
+var mines: objects.Mine[] = [];
+var background: objects.Background;
 
 // asset manifest - array of asset objects
 var manifest = [
-    { id: "cloud", src: "assets/images/cloud.png" },
+    { id: "mine", src: "assets/images/mine.png" },
     { id: "island", src: "assets/images/island.png" },
-    { id: "ocean", src: "assets/images/ocean.gif" },
+    { id: "background", src: "assets/images/background.png" },
     { id: "plane", src: "assets/images/plane.png" }
 ];
 
@@ -51,16 +51,16 @@ function gameLoop() {
     stage.update(); // Refreshes our stage
     plane.update();
     island.update();
-    for (var index = 3; index > 0; index--) {
-        clouds[index].update();
+    for (var index = 10; index > 0; index--) {
+        mines[index].update();
     }
-    ocean.update();
+    background.update();
 }
 
 // Our Game Kicks off in here
 function main() {
-    ocean = new objects.Ocean();
-    stage.addChild(ocean);
+    background = new objects.Background();
+    stage.addChild(background);
 
     island = new objects.Island();
     stage.addChild(island);
@@ -68,8 +68,8 @@ function main() {
     plane = new objects.Plane();
     stage.addChild(plane);
 
-    for (var index = 3; index > 0; index--) {
-        clouds[index] = new objects.Cloud();
-        stage.addChild(clouds[index]);
+    for (var index = 10; index > 0; index--) {
+        mines[index] = new objects.Mine();
+        stage.addChild(mines[index]);
     }
 }
