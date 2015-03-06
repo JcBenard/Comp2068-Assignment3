@@ -10,7 +10,17 @@ var objects;
         __extends(Snake, _super);
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Snake() {
-            _super.call(this, assetLoader.getResult("snake"));
+            _super.call(this, new createjs.SpriteSheet({
+                images: [assetLoader.getResult("snake")],
+                frames: { width: 39, height: 70 },
+                // define two animations, run (loops, 1.5x speed) and jump (returns to run):
+                animations: {
+                    run: {
+                        frames: [0, 1, 2, 1],
+                        speed: 0.12
+                    }
+                }
+            }), "run");
             this._dx = 3;
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
@@ -29,7 +39,7 @@ var objects;
             return this.y;
         };
         return Snake;
-    })(createjs.Bitmap);
+    })(createjs.Sprite);
     objects.Snake = Snake;
 })(objects || (objects = {}));
 //# sourceMappingURL=snake.js.map
