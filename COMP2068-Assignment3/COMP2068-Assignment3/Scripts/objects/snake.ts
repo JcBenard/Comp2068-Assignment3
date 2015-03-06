@@ -1,23 +1,22 @@
 ﻿module objects {
 
-    export class Plane extends createjs.Bitmap {
+    export class Snake extends createjs.Bitmap {
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
 
-            super(assetLoader.getResult("plane"));
+            super(assetLoader.getResult("snake"));
 
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
 
-            this.y = 430;
-            
+            this.x = 200;
+
         }
 
         //public methods/////////////////////////////////////////////////////////////////////////////
         public update() {
-            this.x = stage.mouseX;
-
+            this.y = stage.mouseY;
         }
     }
-} 
+}  

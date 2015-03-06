@@ -92,10 +92,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\game.ts" />
     <TypeScriptCompile Include="Scripts\objects\background.ts" />
-    <TypeScriptCompile Include="Scripts\objects\cloud.ts" />
-    <TypeScriptCompile Include="Scripts\objects\island.ts" />
     <TypeScriptCompile Include="Scripts\objects\mine.ts" />
-    <TypeScriptCompile Include="Scripts\objects\plane.ts" />
+    <TypeScriptCompile Include="Scripts\objects\snake.ts" />
+    <TypeScriptCompile Include="Scripts\objects\tank.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\preloadjs\preloadjs.d.ts" />
