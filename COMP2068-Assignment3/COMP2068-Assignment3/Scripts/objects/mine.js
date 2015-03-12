@@ -27,7 +27,7 @@ var objects;
         };
         Mine.prototype._reset = function () {
             this.x = 640 + Math.floor(Math.random() * 640);
-            this.y = Math.floor(Math.random() * 480);
+            this.y = Math.floor(Math.random() * 440);
         };
         Mine.prototype._checkBounds = function () {
             if (this.x <= 0) {

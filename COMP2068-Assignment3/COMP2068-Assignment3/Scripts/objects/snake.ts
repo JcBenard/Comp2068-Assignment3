@@ -30,12 +30,15 @@
 
         //public methods/////////////////////////////////////////////////////////////////////////////
         public update() {
-            if (this.y > stage.mouseY + 10) {
-                this.y -= this._dx;
-            } else if (this.y < stage.mouseY - 10) {
-                this.y += this._dx;
+            if (this.y < 400) {
+                if (this.y > stage.mouseY + 10) {
+                    this.y -= this._dx;
+                } else if (this.y < stage.mouseY - 10) {
+                    this.y += this._dx;
+                }
+            } else {
+                this.y = 399;
             }
-            
         }
 
         public getY() {

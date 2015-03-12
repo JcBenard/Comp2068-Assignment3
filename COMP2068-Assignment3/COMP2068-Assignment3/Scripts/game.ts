@@ -3,12 +3,15 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="typings/stats/stats.d.ts" />
 
 /// <reference path="objects/background.ts" />
 /// <reference path="objects/mine.ts" />
 /// <reference path="objects/snake.ts" />
 /// <reference path="objects/tank.ts" />
+/// <reference path="objects/infobar.ts" />
 
+var stats: Stats = new Stats();
 var canvas;
 var stage: createjs.Stage;
 var assetLoader: createjs.LoadQueue;
@@ -18,12 +21,21 @@ var snake: objects.Snake;
 var mines: objects.Mine[] = [];
 var background: objects.Background;
 var tank: objects.Tank;
+var info: objects.InfoBar;
+var scoreText: createjs.Text;
+
+//game variables
+var difficulty: number = 1;
+var score: number = 0;
+var scoreDelay = 6;
 
 // asset manifest - array of asset objects
 var manifest = [
     { id: "mine", src: "assets/images/mine.png" },
     { id: "background", src: "assets/images/background.png" },
     { id: "tank", src: "assets/images/tank.png" },
+    { id: "info", src: "assets/images/infoBar.png" },
+    { id: "star", src: "assets/images/star.png" },
     { id: "snake", src: "assets/images/snake.png" }
 ];
 
@@ -43,10 +55,26 @@ function init() {
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
 
+    setupStats();
+
     main();
 }
 
+function setupStats() {
+    stats.setMode(0);
+    document.body.appendChild(stats.domElement);
+}
+
 function gameLoop() {
+
+    stats.begin();
+
+    if (scoreDelay == 0) {
+        score += 1;
+        scoreText.text = "" + score;
+        scoreDelay = 6;
+    }
+    scoreDelay--;
 
     stage.update(); // Refreshes our stage
     snake.update();
@@ -57,6 +85,8 @@ function gameLoop() {
         mines[index].update();
     }
     background.update();
+
+    stats.end();
 }
 
 // Our Game Kicks off in here
@@ -74,4 +104,14 @@ function main() {
 
     snake = new objects.Snake();
     stage.addChild(snake);
+
+    info = new objects.InfoBar();
+    stage.addChild(info);
+
+    scoreText = new createjs.Text("0", "20px Comic Sans MS", "#ffffff");
+    scoreText.x = 355;
+    scoreText.y = 475;
+    scoreText.textAlign = "right";
+    scoreText.textBaseline = "alphabetic";
+    stage.addChild(scoreText);
 }

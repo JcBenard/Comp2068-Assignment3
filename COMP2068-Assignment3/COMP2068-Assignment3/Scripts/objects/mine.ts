@@ -33,7 +33,7 @@
 
         private _reset() {
             this.x = 640 + Math.floor(Math.random() * 640);
-            this.y = Math.floor(Math.random() * 480);           
+            this.y = Math.floor(Math.random() * 440);           
         }
 
         private _checkBounds() {

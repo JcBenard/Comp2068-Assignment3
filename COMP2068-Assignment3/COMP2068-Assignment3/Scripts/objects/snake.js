@@ -28,11 +28,16 @@ var objects;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Snake.prototype.update = function () {
-            if (this.y > stage.mouseY + 10) {
-                this.y -= this._dx;
+            if (this.y < 400) {
+                if (this.y > stage.mouseY + 10) {
+                    this.y -= this._dx;
+                }
+                else if (this.y < stage.mouseY - 10) {
+                    this.y += this._dx;
+                }
             }
-            else if (this.y < stage.mouseY - 10) {
-                this.y += this._dx;
+            else {
+                this.y = 399;
             }
         };
         Snake.prototype.getY = function () {
