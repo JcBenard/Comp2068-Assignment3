@@ -36,7 +36,10 @@ var manifest = [
     { id: "tank", src: "assets/images/tank.png" },
     { id: "info", src: "assets/images/infoBar.png" },
     { id: "star", src: "assets/images/star.png" },
-    { id: "snake", src: "assets/images/snake.png" }
+    { id: "snake", src: "assets/images/snake.png" },
+    { id: "engine", src: "assets/audio/engine.ogg" },
+    { id: "thunder", src: "assets/audio/thunder.ogg" },
+    { id: "yay", src: "assets/audio/yay.ogg" }
 ];
 
 // Game Objects 
@@ -60,9 +63,35 @@ function init() {
     main();
 }
 
+//ultilites methods/////////////////////////////////////////////////////////////////////////
 function setupStats() {
     stats.setMode(0);
     document.body.appendChild(stats.domElement);
+}
+
+//calculate the distance between two points
+function distance(p1: createjs.Point, p2: createjs.Point): number {
+
+    return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y),2)));
+}
+
+function snakeAndMine(mine: objects.Mine) {
+    var p1: createjs.Point = new createjs.Point();
+    var p2: createjs.Point = new createjs.Point();
+
+    p1.x = snake.x;
+    p1.y = snake.y;
+    p2.x = mine.x;
+    p2.y = mine.y;
+
+    if (distance(p1, p2) < ((snake.width * .5) + (mine.width * .5))) {
+        if (mine.isColliding) {
+            createjs.Sound.play("yay");
+            mine.isColliding = true;
+        }
+    } else {
+        mine.isColliding = false;
+    }
 }
 
 function gameLoop() {
@@ -83,7 +112,9 @@ function gameLoop() {
 
     for (var index = 10; index > 0; index--) {
         mines[index].update();
+        snakeAndMine(mines[index]);
     }
+
     background.update();
 
     stats.end();
@@ -114,4 +145,6 @@ function main() {
     scoreText.textAlign = "right";
     scoreText.textBaseline = "alphabetic";
     stage.addChild(scoreText);
+
+    createjs.Sound.play("engine", { loop: -1 });
 }

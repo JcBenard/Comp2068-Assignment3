@@ -2,7 +2,9 @@
 
     export class Snake extends createjs.Sprite {
 
-        private _dx = 3;
+        private _dx: number = 3;
+        public width: number;
+        public height: number;
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
@@ -21,10 +23,15 @@
                 }),"run"
                 );
 
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
 
             this.x = 225;
+
+            
             
         }
 

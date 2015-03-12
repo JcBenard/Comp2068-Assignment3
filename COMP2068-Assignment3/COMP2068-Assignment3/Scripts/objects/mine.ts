@@ -2,8 +2,9 @@
 
     export class Mine extends createjs.Bitmap {
         //public instanced variables
-        public width;
-        public height;
+        public width: number;
+        public height: number;
+        public isColliding: boolean = false;
 
         //private instanced variables
         private _dx = 2;

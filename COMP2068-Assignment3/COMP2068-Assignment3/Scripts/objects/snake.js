@@ -22,8 +22,10 @@ var objects;
                 }
             }), "run");
             this._dx = 3;
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
             this.x = 225;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////

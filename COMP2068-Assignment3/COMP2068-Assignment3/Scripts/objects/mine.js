@@ -11,6 +11,7 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Mine() {
             _super.call(this, assetLoader.getResult("mine"));
+            this.isColliding = false;
             //private instanced variables
             this._dx = 2;
             this.width = this.getBounds().width;
