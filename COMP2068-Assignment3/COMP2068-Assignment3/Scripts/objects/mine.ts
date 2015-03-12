@@ -1,28 +1,17 @@
 ﻿module objects {
 
-    export class Mine extends createjs.Bitmap {
-        //public instanced variables
-        public width: number;
-        public height: number;
-        public isColliding: boolean = false;
-
-        //private instanced variables
-        private _dx = 2;
+    export class Mine extends GameObject {
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
 
-            super(assetLoader.getResult("mine"));
+            super("mine");
 
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            this._dx = 2;
+            this.soundString = "explosion";
 
             //set the island to start at a random x and an out of bounds y
             this._reset();
-
         }
 
         //public methods/////////////////////////////////////////////////////////////////////////////

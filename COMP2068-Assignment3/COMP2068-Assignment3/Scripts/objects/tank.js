@@ -10,10 +10,8 @@ var objects;
         __extends(Tank, _super);
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Tank() {
-            _super.call(this, assetLoader.getResult("tank"));
+            _super.call(this, "tank");
             this._dy = 1;
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
             this.x = 35;
             this.y = 220;
         }
@@ -21,7 +19,7 @@ var objects;
         Tank.prototype.update = function (playerY) {
             if (this.y > playerY) {
                 this.y -= this._dy;
-                this.rotation = -5;
+                this.rotation = -3;
                 switch (true) {
                     case (this.y > playerY + 75):
                         this.rotation = -10;
@@ -35,7 +33,7 @@ var objects;
             }
             else if (this.y < playerY) {
                 this.y += this._dy;
-                this.rotation = 5;
+                this.rotation = 3;
                 switch (true) {
                     case (this.y < playerY - 75):
                         this.rotation = 10;
@@ -49,7 +47,7 @@ var objects;
             }
         };
         return Tank;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Tank = Tank;
 })(objects || (objects = {}));
 //# sourceMappingURL=tank.js.map

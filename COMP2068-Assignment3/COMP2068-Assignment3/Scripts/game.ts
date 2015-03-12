@@ -5,11 +5,13 @@
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
 
+/// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/background.ts" />
 /// <reference path="objects/mine.ts" />
 /// <reference path="objects/snake.ts" />
 /// <reference path="objects/tank.ts" />
 /// <reference path="objects/infobar.ts" />
+/// <reference path="objects/healthbar.ts" />
 
 var stats: Stats = new Stats();
 var canvas;
@@ -23,11 +25,13 @@ var background: objects.Background;
 var tank: objects.Tank;
 var info: objects.InfoBar;
 var scoreText: createjs.Text;
+var healthBar: objects.HealthBar[] = [];
 
 //game variables
 var difficulty: number = 1;
 var score: number = 0;
 var scoreDelay = 6;
+var health = 3;
 
 // asset manifest - array of asset objects
 var manifest = [
@@ -37,9 +41,9 @@ var manifest = [
     { id: "info", src: "assets/images/infoBar.png" },
     { id: "star", src: "assets/images/star.png" },
     { id: "snake", src: "assets/images/snake.png" },
-    { id: "engine", src: "assets/audio/engine.ogg" },
-    { id: "thunder", src: "assets/audio/thunder.ogg" },
-    { id: "yay", src: "assets/audio/yay.ogg" }
+    { id: "life", src: "assets/images/life.png" },
+    { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
+    { id: "explosion", src: "assets/audio/Explosion.wav" }
 ];
 
 // Game Objects 
@@ -75,22 +79,22 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
     return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y),2)));
 }
 
-function snakeAndMine(mine: objects.Mine) {
+function checkCollision(collider: objects.GameObject) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
 
     p1.x = snake.x;
     p1.y = snake.y;
-    p2.x = mine.x;
-    p2.y = mine.y;
+    p2.x = collider.x;
+    p2.y = collider.y;
 
-    if (distance(p1, p2) < ((snake.width * .5) + (mine.width * .5))) {
-        if (mine.isColliding) {
-            createjs.Sound.play("yay");
-            mine.isColliding = true;
+    if (distance(p1, p2) < ((snake.width * .5) + (collider.width * .5))) {
+        if (!collider.isColliding) {
+            createjs.Sound.play(collider.soundString);
+            collider.isColliding = true;
         }
     } else {
-        mine.isColliding = false;
+        collider.isColliding = false;
     }
 }
 
@@ -112,7 +116,7 @@ function gameLoop() {
 
     for (var index = 10; index > 0; index--) {
         mines[index].update();
-        snakeAndMine(mines[index]);
+        checkCollision(mines[index]);
     }
 
     background.update();
@@ -139,6 +143,11 @@ function main() {
     info = new objects.InfoBar();
     stage.addChild(info);
 
+    for (var index2 = 0; index2 < health; index2++) {
+        healthBar[index2] = new objects.HealthBar(index2);
+        stage.addChild(healthBar[index2]);
+    }
+
     scoreText = new createjs.Text("0", "20px Comic Sans MS", "#ffffff");
     scoreText.x = 355;
     scoreText.y = 475;
@@ -146,5 +155,5 @@ function main() {
     scoreText.textBaseline = "alphabetic";
     stage.addChild(scoreText);
 
-    createjs.Sound.play("engine", { loop: -1 });
+    createjs.Sound.play("backgroundMusic", { loop: -1 });
 }

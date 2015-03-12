@@ -10,14 +10,9 @@ var objects;
         __extends(Mine, _super);
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Mine() {
-            _super.call(this, assetLoader.getResult("mine"));
-            this.isColliding = false;
-            //private instanced variables
+            _super.call(this, "mine");
             this._dx = 2;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            this.soundString = "explosion";
             //set the island to start at a random x and an out of bounds y
             this._reset();
         }
@@ -36,7 +31,7 @@ var objects;
             }
         };
         return Mine;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Mine = Mine;
 })(objects || (objects = {}));
 //# sourceMappingURL=mine.js.map
