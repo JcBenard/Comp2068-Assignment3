@@ -12,7 +12,7 @@ var objects;
         function Background() {
             _super.call(this, assetLoader.getResult("background"));
             //private instanced variables
-            this._dx = 2;
+            this._dx = 3;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             //set the island to start at a random x and an out of bounds y

@@ -11,7 +11,7 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Mine() {
             _super.call(this, "mine");
-            this._dx = 2;
+            this._dx = 3;
             this.soundString = "explosion";
             //set the island to start at a random x and an out of bounds y
             this._reset();

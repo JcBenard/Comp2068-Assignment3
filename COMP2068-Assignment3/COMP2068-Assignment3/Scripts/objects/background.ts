@@ -6,7 +6,7 @@
         public height;
 
         //private instanced variables
-        private _dx = 2;
+        private _dx = 3;
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {

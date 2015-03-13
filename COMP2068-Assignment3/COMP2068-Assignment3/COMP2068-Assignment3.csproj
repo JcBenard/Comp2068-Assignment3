@@ -97,7 +97,9 @@
     <TypeScriptCompile Include="Scripts\objects\gameObject.ts" />
     <TypeScriptCompile Include="Scripts\objects\infoBar.ts" />
     <TypeScriptCompile Include="Scripts\objects\mine.ts" />
+    <TypeScriptCompile Include="Scripts\objects\ration.ts" />
     <TypeScriptCompile Include="Scripts\objects\snake.ts" />
+    <TypeScriptCompile Include="Scripts\objects\star.ts" />
     <TypeScriptCompile Include="Scripts\objects\tank.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />

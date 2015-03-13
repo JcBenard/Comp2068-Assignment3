@@ -12,6 +12,8 @@
 /// <reference path="objects/tank.ts" />
 /// <reference path="objects/infobar.ts" />
 /// <reference path="objects/healthbar.ts" />
+/// <reference path="objects/star.ts" />
+/// <reference path="objects/ration.ts" />
 
 var stats: Stats = new Stats();
 var canvas;
@@ -26,6 +28,8 @@ var tank: objects.Tank;
 var info: objects.InfoBar;
 var scoreText: createjs.Text;
 var healthBar: objects.HealthBar[] = [];
+var difficultyStar: objects.Star[] = [];
+var ration: objects.Ration;
 
 //game variables
 var difficulty: number = 1;
@@ -42,7 +46,9 @@ var manifest = [
     { id: "star", src: "assets/images/star.png" },
     { id: "snake", src: "assets/images/snake.png" },
     { id: "life", src: "assets/images/life.png" },
+    { id: "ration", src: "assets/images/ration.png" },
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
+    { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
     { id: "explosion", src: "assets/audio/Explosion.wav" }
 ];
 
@@ -91,7 +97,15 @@ function checkCollision(collider: objects.GameObject) {
     if (distance(p1, p2) < ((snake.width * .5) + (collider.width * .5))) {
         if (!collider.isColliding) {
             createjs.Sound.play(collider.soundString);
-            collider.isColliding = true;
+            collider.isColliding = true;    
+            
+            if (collider.soundString == "explosion") {
+                health--;
+                stage.removeChild(healthBar[health]);
+            } else if (collider.soundString == "difficulty") {
+                stage.addChild(healthBar[health]);
+                health++;
+            }
         }
     } else {
         collider.isColliding = false;
@@ -104,9 +118,25 @@ function gameLoop() {
 
     if (scoreDelay == 0) {
         score += 1;
+        if (score == 750) {
+            stage.addChild(difficultyStar[1]);
+            difficulty = 2;
+            createjs.Sound.play("difficulty");
+        }
+        if (score == 1500) {
+            stage.addChild(difficultyStar[2]);
+            difficulty = 3;
+            createjs.Sound.play("difficulty");
+        }
+
         scoreText.text = "" + score;
         scoreDelay = 6;
+
+        if (score % 375 == 0) {
+            ration._reset();
+        }
     }
+
     scoreDelay--;
 
     stage.update(); // Refreshes our stage
@@ -119,7 +149,8 @@ function gameLoop() {
         checkCollision(mines[index]);
     }
 
-    background.update();
+    ration.update();
+    checkCollision(ration);
 
     stats.end();
 }
@@ -143,10 +174,19 @@ function main() {
     info = new objects.InfoBar();
     stage.addChild(info);
 
+    ration = new objects.Ration();
+    stage.addChild(ration);
+
     for (var index2 = 0; index2 < health; index2++) {
         healthBar[index2] = new objects.HealthBar(index2);
         stage.addChild(healthBar[index2]);
     }
+
+    for (var index3 = 0; index3 < 3; index3++) {
+        difficultyStar[index3] = new objects.Star(index3);
+    }
+
+    stage.addChild(difficultyStar[0]);
 
     scoreText = new createjs.Text("0", "20px Comic Sans MS", "#ffffff");
     scoreText.x = 355;

@@ -7,7 +7,7 @@
 
             super("mine");
 
-            this._dx = 2;
+            this._dx = 3;
             this.soundString = "explosion";
 
             //set the island to start at a random x and an out of bounds y

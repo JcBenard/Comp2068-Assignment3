@@ -23,8 +23,6 @@
             this.regY = this.height * 0.5;
 
             this.isColliding = false;
-
-
         }
     }
 }    
