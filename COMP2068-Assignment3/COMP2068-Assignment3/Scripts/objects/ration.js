@@ -13,14 +13,15 @@ var objects;
             _super.call(this, "ration");
             this._dx = 3;
             this.soundString = "difficulty";
+            this.name = "ration";
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Ration.prototype.update = function () {
             this.x -= this._dx;
         };
-        Ration.prototype._reset = function () {
+        Ration.prototype.reset = function () {
             this.x = 640;
-            this.y = Math.floor(Math.random() * 440);
+            this.y = Math.floor(Math.random() * 430);
         };
         return Ration;
     })(objects.GameObject);

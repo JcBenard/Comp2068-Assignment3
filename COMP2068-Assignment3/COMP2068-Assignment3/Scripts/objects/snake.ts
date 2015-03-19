@@ -20,8 +20,7 @@
                         speed: 0.12
                     }
                 }
-                }),"run"
-                );
+                }),"run");
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;

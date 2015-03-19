@@ -3,11 +3,11 @@
     export class Star extends createjs.Bitmap {
 
         //constructor////////////////////////////////////////////////////////////////////////////////
-        constructor(barNumber: number) {
+        constructor(starNumber: number) {
 
             super(assetLoader.getResult("star"));
 
-            this.x = 136 + (25 * barNumber);
+            this.x = 136 + (25 * starNumber);
             this.y = 462;
         }
     }

@@ -9,9 +9,9 @@ var objects;
     var Star = (function (_super) {
         __extends(Star, _super);
         //constructor////////////////////////////////////////////////////////////////////////////////
-        function Star(barNumber) {
+        function Star(starNumber) {
             _super.call(this, assetLoader.getResult("star"));
-            this.x = 136 + (25 * barNumber);
+            this.x = 136 + (25 * starNumber);
             this.y = 462;
         }
         return Star;

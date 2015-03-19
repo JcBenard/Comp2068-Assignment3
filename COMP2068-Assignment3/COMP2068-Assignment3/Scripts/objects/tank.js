@@ -17,9 +17,10 @@ var objects;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Tank.prototype.update = function (playerY) {
-            if (this.y > playerY) {
+            //rotate the tank images based on the players location
+            if (this.y > playerY + 25) {
                 this.y -= this._dy;
-                this.rotation = -3;
+                this.rotation = -5;
                 switch (true) {
                     case (this.y > playerY + 75):
                         this.rotation = -10;
@@ -31,9 +32,9 @@ var objects;
                         this.rotation = -23;
                 }
             }
-            else if (this.y < playerY) {
+            else if (this.y < playerY - 25) {
                 this.y += this._dy;
-                this.rotation = 3;
+                this.rotation = 5;
                 switch (true) {
                     case (this.y < playerY - 75):
                         this.rotation = 10;
@@ -44,6 +45,9 @@ var objects;
                     case (this.y < playerY - 300):
                         this.rotation = 23;
                 }
+            }
+            else {
+                this.rotation = 0;
             }
         };
         return Tank;
