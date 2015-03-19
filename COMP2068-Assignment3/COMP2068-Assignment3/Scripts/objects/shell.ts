@@ -28,7 +28,7 @@
         public reset(tankY: number, tankRot: number) {
 
             this.x = 100 ;
-            this.y = tank.y + tankRot;
+            this.y = tankY + tankRot;
             this._dy = tankRot / 10;
 
             this.rotation = tankRot;

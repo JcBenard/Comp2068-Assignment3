@@ -10,5 +10,9 @@
 
     export var PLAYER_HEALTH: number = 3;
     export var MINE_NUM: number = 10;
+
+    export var MENU_STATE: number = 0;
+    export var PLAY_STATE: number = 1;
+    export var GAME_OVER_STATE: number = 3;
 }
  

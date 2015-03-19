@@ -10,7 +10,7 @@
             this.textBaseline = "alphabetic";
         }
 
-        update() {
+        update(score: number) {
             this.text = "" + score;
         }
     }
