@@ -8,7 +8,7 @@ var objects;
 (function (objects) {
     var Button = (function (_super) {
         __extends(Button, _super);
-        // PRIVATE INSTANCE VARIABLES +++++++++++++++++++++++++++++++++++++++++++++++++
+        //constructor//////////////////////////////////////////////////////////////
         function Button(stringPath, x, y) {
             _super.call(this, assetLoader.getResult(stringPath));
             this.regX = this.getBounds().width * 0.5;
@@ -18,7 +18,8 @@ var objects;
             this.addEventListener("mouseover", this._buttonOver);
             this.addEventListener("mouseout", this._buttonOut);
         }
-        // EVENT HANDLERS
+        // private methods/////////////////////////////////////////////////////
+        //event handlers
         Button.prototype._buttonOut = function (event) {
             event.currentTarget.alpha = 1.0;
         };

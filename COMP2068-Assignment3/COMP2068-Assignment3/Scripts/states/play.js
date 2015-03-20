@@ -110,6 +110,8 @@ var states;
                 createjs.Sound.stop();
                 this.game.removeAllChildren();
                 stage.removeAllChildren();
+                finalScore = this.score;
+                finalDifficulty = this.difficulty;
                 currentState = constants.GAME_OVER_STATE;
                 stateChanged = true;
             }

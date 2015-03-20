@@ -32,9 +32,11 @@ var gameOver;
 var play;
 var instructions;
 var menu;
+//game states
 var currentState;
 var currentStateFunction;
 var stateChanged = false;
+//game stats
 var finalScore = 0;
 var finalDifficulty = 1;
 // asset manifest - array of asset objects
@@ -51,7 +53,10 @@ var manifest = [
     { id: "shell", src: "assets/images/shell.png" },
     { id: "menuBackground", src: "assets/images/startBackground.png" },
     { id: "startButton", src: "assets/images/startButton.png" },
+    { id: "restartButton", src: "assets/images/restartButton.png" },
     { id: "instructionsButton", src: "assets/images/instructionsButton.png" },
+    { id: "overBackground", src: "assets/images/overBackground.png" },
+    { id: "instructionsBackground", src: "assets/images/instructionBackground.png" },
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
     { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
     { id: "explosion", src: "assets/audio/Explosion.wav" }
@@ -63,13 +68,16 @@ function preload() {
     assetLoader.on("complete", init, this); // event handler-triggers when loading done
     assetLoader.loadManifest(manifest); // loading my asset manifest
 }
+//runs on start
 function init() {
     canvas = document.getElementById("canvas");
     stage = new createjs.Stage(canvas);
     stage.enableMouseOver(20); // Enable mouse events
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
+    //set up the fps tracker
     setupStats();
+    //set the current state to menu then run the change state function
     currentState = constants.MENU_STATE;
     changeState(currentState);
 }
@@ -78,21 +86,27 @@ function setupStats() {
     stats.setMode(0);
     document.body.appendChild(stats.domElement);
 }
+//main game loop
 function gameLoop() {
+    //start tracking fps for this frame
     stats.begin();
+    //if the stateChange boolean is set to true run the change state function
     if (stateChanged) {
         changeState(currentState);
     }
+    //run the update function of the current state
     currentStateFunction.update();
     stage.update();
+    //stop tracking the fps for this frame
     stats.end();
 }
+//this function runs when a state is changed and runs the corresponding functions in the objects
 function changeState(state) {
     switch (state) {
         case constants.MENU_STATE:
-            stateChanged = false;
-            menu = new states.Menu();
-            currentStateFunction = menu;
+            stateChanged = false; //set the boolean to chage states back to false
+            menu = new states.Menu(); //create the menu object
+            currentStateFunction = menu; //change the variable for stage updates 
             break;
         case constants.INSTRUCTIONS_STATE:
             stateChanged = false;

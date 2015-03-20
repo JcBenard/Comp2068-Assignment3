@@ -8,6 +8,7 @@ var objects;
 (function (objects) {
     var Label = (function (_super) {
         __extends(Label, _super);
+        //constructor//////////////////////////////////////////////////////////////////////
         function Label(labelString, x, y) {
             _super.call(this, labelString, constants.FONT_SIZE + " " + constants.FONT_FAMILY, "#ffffff");
             this.x = x;
@@ -15,6 +16,7 @@ var objects;
             this.textAlign = "right";
             this.textBaseline = "alphabetic";
         }
+        //public methods////////////////////////////////////////////////////////////////////
         Label.prototype.update = function (score) {
             this.text = "" + score;
         };

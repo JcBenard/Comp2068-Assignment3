@@ -36,6 +36,7 @@
         }
 
         private _checkBounds() {
+            //if the background's x point is less then - screen width reset it
             if (this.x < -constants.SCREEN_WIDTH) {
                 this._reset();
             }
