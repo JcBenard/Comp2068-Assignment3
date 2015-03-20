@@ -18,6 +18,8 @@
 /// <reference path="objects/shell.ts" />
 /// <reference path="objects/button.ts" />
 /// <reference path="objects/label.ts" />
+/// <reference path="objects/snakedeath.ts" />
+/// <reference path="objects/transitionbackground.ts" />
 /// <reference path="states/gameOver.ts" />
 /// <reference path="states/play.ts" />
 /// <reference path="states/instructions.ts" />
@@ -59,6 +61,7 @@ var manifest = [
     { id: "instructionsBackground", src: "assets/images/instructionBackground.png" },
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
     { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
+    { id: "gameOver", src: "assets/audio/gameOver.ogg" },
     { id: "explosion", src: "assets/audio/Explosion.wav" }
 ];
 // Game Objects 

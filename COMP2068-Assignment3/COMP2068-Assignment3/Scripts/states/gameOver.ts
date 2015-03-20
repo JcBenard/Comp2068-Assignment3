@@ -3,31 +3,40 @@
 /// <reference path="../objects/infobar.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/star.ts" />
+/// <reference path="../objects/snakedeath.ts" />
+/// <reference path="../objects/gamebackground.ts" />
+/// <reference path="../objects/transitionbackground.ts" />
 
 module states {
     export class GameOver {
 
         //public instanced variables///////////////////////////////////////////////////////////////////////
         public game: createjs.Container;
-        public background: createjs.Bitmap;
+        public gamebackground: createjs.Bitmap;
+        public overBackground: objects.TransitionBackground;
+        public snake: objects.SnakeDeath;
         public reStartButton: objects.Button;
         public info: objects.InfoBar;
         public difficultyStar: objects.Star[] = [];
         public scoreText: objects.Label;
 
+        private haveButton: boolean = false;
+
         //constructor/////////////////////////////////////////////////////////////////////////////////
         constructor() {
             this.game = new createjs.Container();
 
-            //create and add the background to the game
-            this.background = new createjs.Bitmap(assetLoader.getResult("overBackground"));
-            this.game.addChild(this.background);
+            //create and add the normal game background to the game
+            this.gamebackground = new createjs.Bitmap(assetLoader.getResult("gameBackground"));
+            this.game.addChild(this.gamebackground);
 
-            //create and add the restart button to the game
-            this.reStartButton = new objects.Button("restartButton", constants.SCRREN_CENTER_WIDTH, constants.SCRREN_CENTER_HEIGHT + 40);
-            this.game.addChild(this.reStartButton);
-            //add an on click handler for the button
-            this.reStartButton.on("click", this.reStartButtonClicked, this);
+            //create and add the player charater with death animation to the game
+            this.snake = new objects.SnakeDeath();
+            this.game.addChild(this.snake);
+
+            //create add add the gameover background to the game
+            this.overBackground = new objects.TransitionBackground("overBackground", 2);
+            this.game.addChild(this.overBackground);          
 
             //create and add the bottom info bar to the game
             this.info = new objects.InfoBar();
@@ -45,12 +54,23 @@ module states {
 
             stage.addChild(this.game);
 
+            //start the background music
+            createjs.Sound.play("gameOver");
         }
 
         //public methods///////////////////////////////////////////////////////////////////////////////////////
-        //update function here just because the game runs an update based on the states
         public update() {
+            //update the gameover background so it can transition
+            this.overBackground.update();
 
+            //if the gameover background has stopped transtioning add the restart button
+            if (this.overBackground.x <= 0 && this.haveButton == false) {
+                //create and add the restart button to the game
+                this.reStartButton = new objects.Button("restartButton", constants.SCRREN_CENTER_WIDTH, constants.SCRREN_CENTER_HEIGHT + 40);
+                this.game.addChild(this.reStartButton);
+                //add an on click handler for the button
+                this.reStartButton.on("click", this.reStartButtonClicked, this);
+            }
         }
 
         //private methods/////////////////////////////////////////////////////////////////////////////////////

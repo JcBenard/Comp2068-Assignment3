@@ -104,8 +104,10 @@
     <TypeScriptCompile Include="Scripts\objects\ration.ts" />
     <TypeScriptCompile Include="Scripts\objects\shell.ts" />
     <TypeScriptCompile Include="Scripts\objects\snake.ts" />
+    <TypeScriptCompile Include="Scripts\objects\snakeDeath.ts" />
     <TypeScriptCompile Include="Scripts\objects\star.ts" />
     <TypeScriptCompile Include="Scripts\objects\tank.ts" />
+    <TypeScriptCompile Include="Scripts\objects\transitionBackground.ts" />
     <TypeScriptCompile Include="Scripts\states\gameOver.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
