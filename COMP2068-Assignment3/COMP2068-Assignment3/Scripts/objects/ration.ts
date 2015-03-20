@@ -7,7 +7,7 @@
 
             super("ration");
 
-            this._dx = 3;
+            this._dx = 4;
             this.soundString = "difficulty";
             this.name = "ration";
         }
@@ -17,8 +17,9 @@
             this.x -= this._dx;
         }
 
+        //
         public reset() {
-            this.x = 640;
+            this.x = constants.SCREEN_WIDTH;
             this.y = Math.floor(Math.random() * 430);
         }
     }

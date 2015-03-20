@@ -9,14 +9,5 @@
 
             this.y = 440;
         }
-
-        //public methods/////////////////////////////////////////////////////////////////////////////
-        public update(score: number) {
-
-        }
-
-        private _reset() {
-
-        }
     }
 }   

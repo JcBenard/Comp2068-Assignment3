@@ -93,7 +93,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\constants.ts" />
     <TypeScriptCompile Include="Scripts\game.ts" />
-    <TypeScriptCompile Include="Scripts\objects\background.ts" />
+    <TypeScriptCompile Include="Scripts\objects\gameBackground.ts" />
     <TypeScriptCompile Include="Scripts\objects\bullet.ts" />
     <TypeScriptCompile Include="Scripts\objects\button.ts" />
     <TypeScriptCompile Include="Scripts\objects\healthBar.ts" />
@@ -106,7 +106,10 @@
     <TypeScriptCompile Include="Scripts\objects\snake.ts" />
     <TypeScriptCompile Include="Scripts\objects\star.ts" />
     <TypeScriptCompile Include="Scripts\objects\tank.ts" />
+    <TypeScriptCompile Include="Scripts\states\gameOver.ts" />
+    <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
+    <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\preloadjs\preloadjs.d.ts" />

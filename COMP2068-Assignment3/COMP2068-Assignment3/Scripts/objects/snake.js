@@ -13,7 +13,6 @@ var objects;
             _super.call(this, new createjs.SpriteSheet({
                 images: [assetLoader.getResult("snake")],
                 frames: { width: 39, height: 70 },
-                // define two animations, run (loops, 1.5x speed) and jump (returns to run):
                 animations: {
                     run: {
                         frames: [0, 1, 2, 1],
@@ -21,6 +20,7 @@ var objects;
                     }
                 }
             }), "run");
+            //instanced variables///////////////////////////////////////////////////////////////////////
             this._dx = 3;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -41,9 +41,6 @@ var objects;
             else {
                 this.y = 399;
             }
-        };
-        Snake.prototype.getY = function () {
-            return this.y;
         };
         return Snake;
     })(createjs.Sprite);

@@ -11,7 +11,7 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Ration() {
             _super.call(this, "ration");
-            this._dx = 3;
+            this._dx = 4;
             this.soundString = "difficulty";
             this.name = "ration";
         }
@@ -19,8 +19,9 @@ var objects;
         Ration.prototype.update = function () {
             this.x -= this._dx;
         };
+        //
         Ration.prototype.reset = function () {
-            this.x = 640;
+            this.x = constants.SCREEN_WIDTH;
             this.y = Math.floor(Math.random() * 430);
         };
         return Ration;

@@ -13,11 +13,6 @@ var objects;
             _super.call(this, assetLoader.getResult("info"));
             this.y = 440;
         }
-        //public methods/////////////////////////////////////////////////////////////////////////////
-        InfoBar.prototype.update = function (score) {
-        };
-        InfoBar.prototype._reset = function () {
-        };
         return InfoBar;
     })(createjs.Bitmap);
     objects.InfoBar = InfoBar;

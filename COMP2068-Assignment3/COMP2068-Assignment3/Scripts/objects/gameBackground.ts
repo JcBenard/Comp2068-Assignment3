@@ -1,33 +1,35 @@
 ﻿module objects {
 
-    export class Background extends createjs.Bitmap {
+    export class GameBackground extends createjs.Bitmap {
         //public instanced variables
         public width;
         public height;
 
         //private instanced variables
-        private _dx = 3;
+        private _dx = 4;
 
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
 
-            super(assetLoader.getResult("background"));
+            super(assetLoader.getResult("gameBackground"));
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
-            //set the island to start at a random x and an out of bounds y
             this._reset();
 
         }
 
         //public methods/////////////////////////////////////////////////////////////////////////////
         public update() {
+            //move the background to the left
             this.x -= this._dx;
 
+            //see if the background is at it's end then reset it
             this._checkBounds();
         }
 
+        //private methods//////////////////////////////////////////////////////////////////////////
         private _reset() {
             this.x = 0;
             this.y = 0;

@@ -11,7 +11,7 @@ var objects;
         //constructor////////////////////////////////////////////////////////////////////////////////
         function Shell() {
             _super.call(this, "shell");
-            this._dx = 4;
+            this._dx = 5;
             this._dy = 0;
             this.soundString = "explosion";
             this.name = "shell";
@@ -22,9 +22,6 @@ var objects;
         Shell.prototype.update = function () {
             this.x += this._dx;
             this.y += this._dy;
-            if (this.y >= 440) {
-                this.y = constants.SCREEN_HEIGHT;
-            }
         };
         Shell.prototype.reset = function (tankY, tankRot) {
             this.x = 100;

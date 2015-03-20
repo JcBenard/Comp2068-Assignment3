@@ -7,7 +7,7 @@
 
             super("shell");
 
-            this._dx = 4;
+            this._dx = 5;
             this._dy = 0;
             this.soundString = "explosion";
             this.name = "shell";
@@ -19,10 +19,6 @@
         public update() {
             this.x += this._dx;
             this.y += this._dy;
-
-            if (this.y >= 440) {
-                this.y = constants.SCREEN_HEIGHT;
-            }
         }
 
         public reset(tankY: number, tankRot: number) {

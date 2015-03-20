@@ -8,15 +8,23 @@ var objects;
 (function (objects) {
     var Button = (function (_super) {
         __extends(Button, _super);
+        // PRIVATE INSTANCE VARIABLES +++++++++++++++++++++++++++++++++++++++++++++++++
         function Button(stringPath, x, y) {
-            _super.call(this, stringPath);
-            this.x;
-            this.y;
-            this.x = this.x;
-            this.y = this.y;
-            //this.addEventListener("mouseover", this._buttonOver);
-            //this.addEventListener("mouseout", this._buttonOut);
+            _super.call(this, assetLoader.getResult(stringPath));
+            this.regX = this.getBounds().width * 0.5;
+            this.regY = this.getBounds().height * 0.5;
+            this.x = x;
+            this.y = y;
+            this.addEventListener("mouseover", this._buttonOver);
+            this.addEventListener("mouseout", this._buttonOut);
         }
+        // EVENT HANDLERS
+        Button.prototype._buttonOut = function (event) {
+            event.currentTarget.alpha = 1.0;
+        };
+        Button.prototype._buttonOver = function (event) {
+            event.currentTarget.alpha = 0.5;
+        };
         return Button;
     })(createjs.Bitmap);
     objects.Button = Button;
