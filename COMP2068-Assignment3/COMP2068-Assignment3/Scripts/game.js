@@ -8,6 +8,7 @@
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/gameBackground.ts" />
 /// <reference path="objects/mine.ts" />
+/// <reference path="objects/antiTank.ts" />
 /// <reference path="objects/snake.ts" />
 /// <reference path="objects/tank.ts" />
 /// <reference path="objects/infobar.ts" />
@@ -19,7 +20,9 @@
 /// <reference path="objects/button.ts" />
 /// <reference path="objects/label.ts" />
 /// <reference path="objects/snakedeath.ts" />
+/// <reference path="objects/explosion.ts" />
 /// <reference path="objects/transitionbackground.ts" />
+/// <reference path="states/win.ts" />
 /// <reference path="states/gameOver.ts" />
 /// <reference path="states/play.ts" />
 /// <reference path="states/instructions.ts" />
@@ -34,6 +37,7 @@ var gameOver;
 var play;
 var instructions;
 var menu;
+var win;
 //game states
 var currentState;
 var currentStateFunction;
@@ -41,6 +45,8 @@ var stateChanged = false;
 //game stats
 var finalScore = 0;
 var finalDifficulty = 1;
+var finalAvaterY = 0;
+var finalHealth = 0;
 // asset manifest - array of asset objects
 var manifest = [
     { id: "mine", src: "assets/images/mine.png" },
@@ -53,12 +59,15 @@ var manifest = [
     { id: "ration", src: "assets/images/ration.png" },
     { id: "bullet", src: "assets/images/bullet.png" },
     { id: "shell", src: "assets/images/shell.png" },
+    { id: "antiTank", src: "assets/images/antiTank.png" },
+    { id: "explosionSprite", src: "assets/images/explosion.png" },
     { id: "menuBackground", src: "assets/images/startBackground.png" },
     { id: "startButton", src: "assets/images/startButton.png" },
     { id: "restartButton", src: "assets/images/restartButton.png" },
     { id: "instructionsButton", src: "assets/images/instructionsButton.png" },
     { id: "overBackground", src: "assets/images/overBackground.png" },
     { id: "instructionsBackground", src: "assets/images/instructionBackground.png" },
+    { id: "winBackground", src: "assets/images/winBackground.png" },
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
     { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
     { id: "gameOver", src: "assets/audio/gameOver.ogg" },
@@ -125,6 +134,11 @@ function changeState(state) {
             stateChanged = false;
             gameOver = new states.GameOver();
             currentStateFunction = gameOver;
+            break;
+        case constants.WIN_STATE:
+            stateChanged = false;
+            win = new states.Win();
+            currentStateFunction = win;
             break;
     }
 }

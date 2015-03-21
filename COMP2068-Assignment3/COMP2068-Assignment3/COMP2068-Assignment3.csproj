@@ -93,6 +93,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\constants.ts" />
     <TypeScriptCompile Include="Scripts\game.ts" />
+    <TypeScriptCompile Include="Scripts\objects\antiTank.ts" />
+    <TypeScriptCompile Include="Scripts\objects\explosion.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameBackground.ts" />
     <TypeScriptCompile Include="Scripts\objects\bullet.ts" />
     <TypeScriptCompile Include="Scripts\objects\button.ts" />
@@ -112,6 +114,7 @@
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
+    <TypeScriptCompile Include="Scripts\states\win.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\preloadjs\preloadjs.d.ts" />

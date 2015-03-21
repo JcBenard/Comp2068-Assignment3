@@ -6,6 +6,7 @@
 /// <reference path="../objects/infobar.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/mine.ts" />
+/// <reference path="../objects/antiTank.ts" />
 /// <reference path="../objects/ration.ts" />
 /// <reference path="../objects/shell.ts" />
 /// <reference path="../objects/snake.ts" />
@@ -19,17 +20,20 @@ var states;
             this.mines = [];
             this.healthBar = [];
             this.difficultyStar = [];
+            this.antiTank = [];
             this.difficulty = 1;
             this.score = 0;
             this.ticks = 0;
             this.health = constants.PLAYER_HEALTH;
             this.game = new createjs.Container();
+            this.game.alpha = 0;
             //create and add the background to the game
             this.background = new objects.GameBackground();
             this.game.addChild(this.background);
             for (var index = constants.MINE_NUM; index > 0; index--) {
                 this.mines[index] = new objects.Mine();
                 this.game.addChild(this.mines[index]);
+                this.antiTank[index] = new objects.AntiTank(index);
             }
             //create and add the ration to the game
             this.ration = new objects.Ration();
@@ -104,67 +108,93 @@ var states;
         }; //end of collider
         //updates the game based on the elements
         Play.prototype.update = function () {
-            //if the player has no life left
-            if (this.health < 1) {
-                //stop all the sounds, remove everything from the game and stage then set the state to game over
-                createjs.Sound.stop();
-                this.game.removeAllChildren();
-                stage.removeAllChildren();
-                finalScore = this.score;
-                finalDifficulty = this.difficulty;
-                currentState = constants.GAME_OVER_STATE;
-                stateChanged = true;
+            if (this.game.alpha != 1) {
+                this.game.alpha += .01;
             }
-            //if the ticker is divisible by 6
-            if (this.ticks % 6 == 0) {
-                this.score += 1; //increase the score by 1
-                if (this.score == 350) {
-                    stage.addChild(this.difficultyStar[1]); //add one of the level stars to the game
-                    this.difficulty = 2;
-                    createjs.Sound.play("difficulty");
+            if (this.game.alpha >= 1) {
+                //if the player has no life left
+                if (this.health < 1) {
+                    //stop all the sounds, remove everything from the game and stage then set the state to game over
+                    createjs.Sound.stop();
+                    this.game.removeAllChildren();
+                    stage.removeAllChildren();
+                    finalScore = this.score;
+                    finalDifficulty = this.difficulty;
+                    finalAvaterY = this.snake.y;
+                    currentState = constants.GAME_OVER_STATE;
+                    stateChanged = true;
                 }
-                if (this.score == 700) {
-                    stage.addChild(this.difficultyStar[2]); //add one of the level starts to the game
-                    this.difficulty = 3;
-                    createjs.Sound.play("difficulty");
+                //if the ticker is divisible by 6
+                if (this.ticks % 6 == 0) {
+                    this.score += 1; //increase the score by 1
+                    if (this.score == 350) {
+                        stage.addChild(this.difficultyStar[1]); //add one of the level stars to the game
+                        this.difficulty = 2;
+                        createjs.Sound.play("difficulty");
+                    }
+                    if (this.score == 700) {
+                        stage.addChild(this.difficultyStar[2]); //add one of the level starts to the game
+                        this.difficulty = 3;
+                        createjs.Sound.play("difficulty");
+                    }
+                    if (this.score == 100) {
+                        for (var index = constants.MINE_NUM; index > 0; index--) {
+                            this.game.addChildAt(this.antiTank[index], (index + 3));
+                        }
+                    }
+                    this.scoreText.update(this.score); //update the score in the game
+                    if (this.score % 175 == 0) {
+                        this.ration.reset(); //reset the ration so it will appear on the game
+                    }
                 }
-                if (this.score == 1050) {
+                //if 90 frams have passed and the difficulty is greater then 1
+                if (this.ticks % 90 == 0 && this.difficulty > 1) {
+                    this.bullet.reset(this.snake.y, this.tank.y); //shoot a bullet
                 }
-                this.scoreText.update(this.score); //update the score in the game
-                if (this.score % 175 == 0) {
-                    this.ration.reset(); //reset the ration so it will appear on the game
+                //if 180 frams have passed and the difficulty is greater then 2
+                if (this.ticks == 180 && this.difficulty > 2) {
+                    this.shell.reset(this.tank.y, this.tank.rotation); //fire 1 shell 
                 }
-            }
-            //if 90 frams have passed and the difficulty is greater then 1
-            if (this.ticks % 90 == 0 && this.difficulty > 1) {
-                this.bullet.reset(this.snake.y, this.tank.y); //shoot a bullet
-            }
-            //if 180 frams have passed and the difficulty is greater then 2
-            if (this.ticks == 180 && this.difficulty > 2) {
-                this.shell.reset(this.tank.y, this.tank.rotation); //fire 1 shell 
-            }
-            //update and check collision for the moving elements
-            this.snake.update();
-            this.tank.update(this.snake.y);
-            this.background.update();
-            if (this.health > 0) {
-                for (var index = constants.MINE_NUM; index > 0; index--) {
-                    this.mines[index].update();
-                    this.checkCollision(this.mines[index]);
+                if (this.score > 100) {
+                    for (var index = constants.MINE_NUM; index > 0; index--) {
+                        this.antiTank[index].update();
+                    }
+                    if (this.antiTank[1].x <= this.tank.x) {
+                        //stop all the sounds, remove everything from the game and stage then set the state to game over
+                        createjs.Sound.stop();
+                        this.game.removeAllChildren();
+                        stage.removeAllChildren();
+                        finalScore = this.score;
+                        finalDifficulty = this.difficulty;
+                        finalAvaterY = this.snake.y;
+                        finalHealth = this.health;
+                        currentState = constants.WIN_STATE;
+                        stateChanged = true;
+                    }
                 }
-                this.ration.update();
-                this.checkCollision(this.ration);
-                this.bullet.update();
-                this.checkCollision(this.bullet);
-                this.shell.update();
-                this.checkCollision(this.shell);
+                //update and check collision for the moving elements
+                this.snake.update();
+                this.tank.update(this.snake.y);
+                this.background.update();
+                if (this.health > 0) {
+                    for (var index = constants.MINE_NUM; index > 0; index--) {
+                        this.mines[index].update();
+                        this.checkCollision(this.mines[index]);
+                    }
+                    this.ration.update();
+                    this.checkCollision(this.ration);
+                    this.bullet.update();
+                    this.checkCollision(this.bullet);
+                    this.shell.update();
+                    this.checkCollision(this.shell);
+                }
+                //if the ticker reaches 180 set it to 0
+                if (this.ticks == 180) {
+                    this.ticks = 0;
+                }
+                //increment the ticker
+                this.ticks++;
             }
-            //if the ticker reaches 180 set it to 0
-            if (this.ticks == 180) {
-                this.ticks = 0;
-            }
-            //increment the ticker
-            this.ticks++;
         }; //end of update
         return Play;
     })();

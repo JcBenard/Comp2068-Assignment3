@@ -7,13 +7,15 @@
 
         //private instanced variables
         private _dx;
+        private _buffer: number;
 
         //constructor////////////////////////////////////////////////////////////////////////////////
-        constructor(backgroundName: string, dx: number) {
+        constructor(backgroundName: string, dx: number, buffer: number) {
 
             super(assetLoader.getResult(backgroundName));
 
             this._dx = dx;
+            this._buffer = buffer;
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -34,7 +36,7 @@
 
         private _checkBounds() {
             //if the background is fully in the screen stop moving it
-            if (this.x <= 0) {
+            if (this.x <= 0 - this._buffer) {
                 this._dx = 0;
             }
         }

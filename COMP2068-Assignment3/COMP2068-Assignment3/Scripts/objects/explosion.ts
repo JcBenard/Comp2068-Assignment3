@@ -1,8 +1,7 @@
 ﻿module objects {
 
-    export class SnakeDeath extends createjs.Sprite {
+    export class Explosion extends createjs.Sprite {
 
-        //instanced variables///////////////////////////////////////////////////////////////////////
         public width: number;
         public height: number;
 
@@ -11,16 +10,16 @@
 
             super(
                 new createjs.SpriteSheet({
-                    images: [assetLoader.getResult("snake")],
-                    frames: { width: 40, height: 70 },
+                    images: [assetLoader.getResult("explosionSprite")],
+                    frames: { width: 40, height: 40 },
 
                     animations: {
-                        die: {
-                            frames: [0, 3, 4, 5, 6, 7],
-                            speed: 0.025
+                        explosion: {
+                            frames: [0, 1, 2, 3],
+                            speed: 0.04
                         }
                     }
-                }), "die");
+                }), "explosion");
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -28,8 +27,8 @@
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
 
-            this.x = 225;
-            this.y = finalAvaterY;
+            this.x = Math.floor((Math.random() * 100) + 20); 
+            this.y = Math.floor(Math.random() * constants.SCREEN_HEIGHT);
         }
     }
-}  
+}   

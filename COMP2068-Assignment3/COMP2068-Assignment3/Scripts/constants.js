@@ -17,5 +17,6 @@ var constants;
     constants.INSTRUCTIONS_STATE = 1;
     constants.PLAY_STATE = 2;
     constants.GAME_OVER_STATE = 3;
+    constants.WIN_STATE = 4;
 })(constants || (constants = {}));
 //# sourceMappingURL=constants.js.map

@@ -27,6 +27,7 @@ var objects;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
             this.x = 225;
+            this.y = constants.SCRREN_CENTER_HEIGHT;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Snake.prototype.update = function () {

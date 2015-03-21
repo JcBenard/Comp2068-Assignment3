@@ -6,6 +6,7 @@
 /// <reference path="../objects/snakedeath.ts" />
 /// <reference path="../objects/gamebackground.ts" />
 /// <reference path="../objects/transitionbackground.ts" />
+/// <reference path="../objects/tank.ts" />
 var states;
 (function (states) {
     var GameOver = (function () {
@@ -21,7 +22,7 @@ var states;
             this.snake = new objects.SnakeDeath();
             this.game.addChild(this.snake);
             //create add add the gameover background to the game
-            this.overBackground = new objects.TransitionBackground("overBackground", 2);
+            this.overBackground = new objects.TransitionBackground("overBackground", 1.75, 0);
             this.game.addChild(this.overBackground);
             //create and add the bottom info bar to the game
             this.info = new objects.InfoBar();
@@ -30,6 +31,10 @@ var states;
                 this.difficultyStar[index] = new objects.Star(index);
                 this.game.addChild(this.difficultyStar[index]);
             }
+            //create the restart button to the game
+            this.reStartButton = new objects.Button("restartButton", constants.SCRREN_CENTER_WIDTH, constants.SCRREN_CENTER_HEIGHT + 40);
+            //add an on click handler for the button
+            this.reStartButton.on("click", this.reStartButtonClicked, this);
             //create and add the score field to the game
             this.scoreText = new objects.Label("" + finalScore.toString(), 355, 475);
             this.game.addChild(this.scoreText);
@@ -43,11 +48,8 @@ var states;
             this.overBackground.update();
             //if the gameover background has stopped transtioning add the restart button
             if (this.overBackground.x <= 0 && this.haveButton == false) {
-                //create and add the restart button to the game
-                this.reStartButton = new objects.Button("restartButton", constants.SCRREN_CENTER_WIDTH, constants.SCRREN_CENTER_HEIGHT + 40);
                 this.game.addChild(this.reStartButton);
-                //add an on click handler for the button
-                this.reStartButton.on("click", this.reStartButtonClicked, this);
+                this.haveButton = true;
             }
         };
         //private methods/////////////////////////////////////////////////////////////////////////////////////
