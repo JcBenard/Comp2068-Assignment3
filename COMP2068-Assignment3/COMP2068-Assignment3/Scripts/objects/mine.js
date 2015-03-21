@@ -22,10 +22,12 @@ var objects;
             this.x -= this._dx;
             this._checkBounds();
         };
+        //set the mine to a random y pos and a random x pos out of screen
         Mine.prototype._reset = function () {
             this.x = constants.SCREEN_WIDTH + Math.floor(Math.random() * constants.SCREEN_WIDTH);
             this.y = Math.floor(Math.random() * constants.SCREEN_HEIGHT);
         };
+        //checks if the mine is passed the screen
         Mine.prototype._checkBounds = function () {
             if (this.x <= 0) {
                 this._reset();

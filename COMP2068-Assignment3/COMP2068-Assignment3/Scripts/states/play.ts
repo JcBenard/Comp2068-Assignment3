@@ -178,7 +178,7 @@ module states {
                         this.difficulty = 3;
                         createjs.Sound.play("difficulty");
                     }
-                    if (this.score == 100) {//if the score is equal to 1050
+                    if (this.score == 1050) {//if the score is equal to 1050
                         //create and add the mines to the game
                         for (var index = constants.MINE_NUM; index > 0; index--) {
                             this.game.addChildAt(this.antiTank[index], (index + 3));
@@ -202,10 +202,12 @@ module states {
                     this.shell.reset(this.tank.y, this.tank.rotation);//fire 1 shell 
                 }
 
-                if (this.score > 100) {
+                //move the anti-tank mines, once they connect with the tank, the game move to the win state
+                if (this.score >= 1050) {
                     for (var index = constants.MINE_NUM; index > 0; index--) {
                         this.antiTank[index].update();
                     }
+
                     if (this.antiTank[1].x <= this.tank.x) {
                         //stop all the sounds, remove everything from the game and stage then set the state to game over
                         createjs.Sound.stop();

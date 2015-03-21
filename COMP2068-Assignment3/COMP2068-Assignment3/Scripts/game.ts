@@ -78,6 +78,7 @@ var manifest = [
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
     { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
     { id: "gameOver", src: "assets/audio/gameOver.ogg" },
+    { id: "win", src: "assets/audio/win.mp3" },
     { id: "explosion", src: "assets/audio/Explosion.wav" }
 ];
 
@@ -154,7 +155,7 @@ function changeState(state: number) {
             gameOver = new states.GameOver();
             currentStateFunction = gameOver;            
             break;
-        case constants.WIN_STATE:
+        case constants.WIN_STATE://if its the win state
             stateChanged = false;
             win = new states.Win();
             currentStateFunction = win;

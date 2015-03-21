@@ -137,7 +137,7 @@ var states;
                         this.difficulty = 3;
                         createjs.Sound.play("difficulty");
                     }
-                    if (this.score == 100) {
+                    if (this.score == 1050) {
                         for (var index = constants.MINE_NUM; index > 0; index--) {
                             this.game.addChildAt(this.antiTank[index], (index + 3));
                         }
@@ -155,7 +155,8 @@ var states;
                 if (this.ticks == 180 && this.difficulty > 2) {
                     this.shell.reset(this.tank.y, this.tank.rotation); //fire 1 shell 
                 }
-                if (this.score > 100) {
+                //move the anti-tank mines, once they connect with the tank, the game move to the win state
+                if (this.score >= 1050) {
                     for (var index = constants.MINE_NUM; index > 0; index--) {
                         this.antiTank[index].update();
                     }

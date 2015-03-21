@@ -21,11 +21,13 @@
             this._checkBounds();
         }
 
+        //set the mine to a random y pos and a random x pos out of screen
         private _reset() {
             this.x = constants.SCREEN_WIDTH + Math.floor(Math.random() * constants.SCREEN_WIDTH);
             this.y = Math.floor(Math.random() * constants.SCREEN_HEIGHT);           
         }
 
+        //checks if the mine is passed the screen
         private _checkBounds() {
             if (this.x <= 0) {
                 this._reset();

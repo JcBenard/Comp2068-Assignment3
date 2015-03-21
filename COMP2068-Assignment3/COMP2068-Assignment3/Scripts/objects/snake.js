@@ -31,6 +31,7 @@ var objects;
         }
         //public methods/////////////////////////////////////////////////////////////////////////////
         Snake.prototype.update = function () {
+            //move the player charater based on the mouse at a slowed rate
             if (this.y < 400) {
                 if (this.y > stage.mouseY + 10) {
                     this.y -= this._dx;

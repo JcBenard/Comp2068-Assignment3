@@ -71,6 +71,7 @@ var manifest = [
     { id: "backgroundMusic", src: "assets/audio/backgroundMusic.ogg" },
     { id: "difficulty", src: "assets/audio/difficultyUp.ogg" },
     { id: "gameOver", src: "assets/audio/gameOver.ogg" },
+    { id: "win", src: "assets/audio/win.mp3" },
     { id: "explosion", src: "assets/audio/Explosion.wav" }
 ];
 // Game Objects 

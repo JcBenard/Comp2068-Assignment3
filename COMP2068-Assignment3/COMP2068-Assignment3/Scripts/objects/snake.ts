@@ -35,13 +35,14 @@
 
         //public methods/////////////////////////////////////////////////////////////////////////////
         public update() {
+            //move the player charater based on the mouse at a slowed rate
             if (this.y < 400) {
                 if (this.y > stage.mouseY + 10) {
                     this.y -= this._dx;
                 } else if (this.y < stage.mouseY - 10) {
                     this.y += this._dx;
                 }
-            } else {
+            } else {//make the player unable to move beyon the screen
                 this.y = 399;
             }
         }

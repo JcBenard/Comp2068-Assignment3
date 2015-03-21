@@ -22,10 +22,7 @@ var states;
             this.healthBar = [];
             this.difficultyStar = [];
             this.explosions = [];
-            this.difficulty = 1;
-            this.score = 0;
-            this.ticks = 0;
-            this.health = constants.PLAYER_HEALTH;
+            this.haveButton = false;
             this.game = new createjs.Container();
             //create and add the normal game background to the game
             this.gameBackground = new objects.GameBackground();
@@ -33,6 +30,7 @@ var states;
             //create and add the tank to the game
             this.tank = new objects.Tank();
             this.game.addChild(this.tank);
+            this.tank.y = finalAvaterY;
             for (var index3 = 0; index3 < 10; index3++) {
                 this.explosions[index3] = new objects.Explosion();
                 this.game.addChild(this.explosions[index3]);
@@ -53,20 +51,42 @@ var states;
             }
             for (var index2 = 0; index2 < 3; index2++) {
                 this.difficultyStar[index2] = new objects.Star(index2);
-                this.game.addChild(this.difficultyStar[index]);
+                this.game.addChild(this.difficultyStar[index2]);
             }
+            //create the restart button to the game
+            this.reStartButton = new objects.Button("restartButton", constants.SCRREN_CENTER_WIDTH, constants.SCRREN_CENTER_HEIGHT + 40);
+            //add an on click handler for the button
+            this.reStartButton.on("click", this.reStartButtonClicked, this);
             //create and add the score field to the game
             this.scoreText = new objects.Label("" + finalScore, 355, 475);
             this.game.addChild(this.scoreText);
             //add all the elements to the stage
             stage.addChild(this.game);
+            createjs.Sound.play("explosion", { loop: 2 });
+            createjs.Sound.play("win", { loop: 3 });
         } //end of constructor
         //updates the game based on the elements
         Win.prototype.update = function () {
+            //update the elemetns on the stage
             this.snake.update();
             this.gameBackground.update();
             this.winBackground.update();
+            //if the gameover background has stopped transtioning add the restart button
+            if (this.winBackground.x <= -250 && this.haveButton == false) {
+                this.game.addChild(this.reStartButton);
+                this.haveButton = true;
+            }
         }; //end of update
+        //private methods/////////////////////////////////////////////////////////////////////////////////////
+        //if they click the reStart button
+        Win.prototype.reStartButtonClicked = function () {
+            //clear the game then change the state to play
+            createjs.Sound.stop();
+            this.game.removeAllChildren();
+            stage.removeChild(this.game);
+            currentState = constants.PLAY_STATE;
+            stateChanged = true;
+        };
         return Win;
     })();
     states.Win = Win; //end of play

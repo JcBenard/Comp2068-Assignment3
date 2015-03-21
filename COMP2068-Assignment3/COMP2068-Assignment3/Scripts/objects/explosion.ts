@@ -8,6 +8,7 @@
         //constructor////////////////////////////////////////////////////////////////////////////////
         constructor() {
 
+            //create the explosion animation
             super(
                 new createjs.SpriteSheet({
                     images: [assetLoader.getResult("explosionSprite")],
@@ -27,6 +28,7 @@
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
 
+            //place it in a random y pos near the tank
             this.x = Math.floor((Math.random() * 100) + 20); 
             this.y = Math.floor(Math.random() * constants.SCREEN_HEIGHT);
         }
